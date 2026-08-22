@@ -7,9 +7,6 @@ def calculate_eigenvalues(matrix):
     # Write code here
     try:
         matrix = np.asarray(matrix)
-    except:
-        return None
-    try:
         det_mat = np.linalg.det(matrix)
     except:
         return None
