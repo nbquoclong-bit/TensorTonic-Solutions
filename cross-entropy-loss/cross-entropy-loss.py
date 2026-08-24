@@ -1,13 +1,12 @@
 import numpy as np
 
-def cross_entropy_loss(y_true, y_pred):
+def cross_entropy_loss(y_true: list[int], y_pred: list[list[float]]) -> float:
     """
-    Compute average cross-entropy loss for multi-class classification.
+    Return the mean multiclass cross-entropy loss.
     """
-    # Write code here
-    y_t = np.array(y_true)
-    y_p = np.array(y_pred)
-    sum_loss = np.zeros(y_t.shape[0])
-    for i in np.arange(y_t.shape[0]):
-        sum_loss[i] = np.log(y_p[i][y_t[i]])
-    return -np.mean(sum_loss)
+    y_true, y_pred = [np.array(x) for x in (y_true, y_pred)]
+    L_arr = np.zeros(len(y_true), dtype = 'float')
+    for i in range(len(y_true)):
+        L_arr[i] = -np.log(y_pred[i][y_true[i]])
+    L = np.mean(L_arr)
+    return L
