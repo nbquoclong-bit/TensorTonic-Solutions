@@ -1,11 +1,10 @@
 import math
 
-def log_loss(y_true, y_pred, eps=1e-15):
+def log_loss(y_true: list, y_pred: list, eps: float = 1e-15) -> list:
     """
-    Compute per-sample log loss.
+    Returns a list of loss values.
     """
     # Write code here
-    true_y = np.asarray(y_true)
-    pred_y = np.clip(np.asarray(y_pred), eps, 1-eps)
-    loss = (-(true_y*np.log(pred_y)+(1-true_y)*np.log(1-pred_y))).tolist()
-    return loss
+    p_pred = [min(1-eps, max(eps, i)) for i in y_pred]
+    L = [-(y_true[i] * math.log(p_pred[i]) + (1-y_true[i]) * math.log(1-p_pred[i])) for i in range(len(y_true))]
+    return L
